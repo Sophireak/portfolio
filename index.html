@@ -1,976 +1,941 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sophireak — Developer Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rpg-awesome@0.2.0/css/rpg-awesome.min.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --black: #0a0a0a;
-            --dark: #111827;
-            --darker: #0d1117;
-            --green: #00ff41;
-            --green-dim: #00cc33;
-            --green-dark: #003311;
-            --yellow: #ffd700;
-            --yellow-dim: #ccaa00;
-            --red: #ff4444;
-            --blue: #00aaff;
-            --white: #e8f5e9;
-            --gray: #4a5568;
-            --pixel-border: 3px solid var(--green);
+      :root {
+        --black: #0a0a0a;
+        --darker: #0d1117;
+        --green: #00ff41;
+        --green-dim: #00cc33;
+        --green-dark: #003311;
+        --yellow: #ffd700;
+        --yellow-dim: #ccaa00;
+        --blue: #00aaff;
+        --white: #e8f5e9;
+        --gray: #4a5568;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background-color: var(--darker);
+        color: var(--white);
+        font-family: "VT323", monospace;
+        font-size: 20px;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.03) 2px,
+          rgba(0, 0, 0, 0.03) 4px
+        );
+        pointer-events: none;
+        z-index: 9999;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image:
+          linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+        background-size: 32px 32px;
+        pointer-events: none;
+        z-index: 0;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(10, 10, 10, 0.95);
+        border-bottom: 2px solid var(--green);
+        padding: 12px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav-logo {
+        font-family: "Press Start 2P", monospace;
+        font-size: 11px;
+        color: var(--green);
+        text-shadow: 0 0 10px var(--green);
+        text-decoration: none;
+      }
+      .nav-logo span {
+        color: var(--yellow);
+      }
+      .nav-links {
+        display: flex;
+        gap: 32px;
+      }
+      .nav-links a {
+        font-family: "Press Start 2P", monospace;
+        font-size: 8px;
+        color: var(--white);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--green);
+      }
+      #hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+        padding: 80px 40px 40px;
+      }
+      .hero-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        max-width: 1100px;
+        width: 100%;
+        align-items: center;
+      }
+      .blink {
+        animation: blink 1s step-end infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            background-color: var(--darker);
-            color: var(--white);
-            font-family: 'VT323', monospace;
-            font-size: 20px;
-            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='4' height='4' fill='%2300ff41'/%3E%3Crect x='4' y='4' width='4' height='4' fill='%2300ff41'/%3E%3Crect x='8' y='8' width='4' height='4' fill='%2300ff41'/%3E%3C/svg%3E"), auto;
-            overflow-x: hidden;
+        50% {
+          opacity: 0;
         }
-
-        /* Scanline effect */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0,0,0,0.03) 2px,
-                rgba(0,0,0,0.03) 4px
-            );
-            pointer-events: none;
-            z-index: 9999;
+      }
+      .hero-tag {
+        font-family: "Press Start 2P", monospace;
+        font-size: 9px;
+        color: var(--green);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .hero-name {
+        font-family: "Press Start 2P", monospace;
+        font-size: 26px;
+        line-height: 1.6;
+        color: var(--white);
+        margin-bottom: 8px;
+        text-shadow: 3px 3px 0 var(--green-dark);
+      }
+      .hero-name span {
+        color: var(--green);
+        text-shadow: 0 0 20px var(--green);
+      }
+      .hero-title {
+        font-family: "Press Start 2P", monospace;
+        font-size: 11px;
+        color: var(--yellow);
+        margin-bottom: 28px;
+      }
+      .hero-bio {
+        font-size: 22px;
+        color: #a0aec0;
+        line-height: 1.6;
+        margin-bottom: 36px;
+      }
+      .hero-bio span {
+        color: var(--green);
+      }
+      .hero-btns {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .btn-pixel {
+        font-family: "Press Start 2P", monospace;
+        font-size: 9px;
+        padding: 14px 24px;
+        text-decoration: none;
+        display: inline-block;
+        transition: transform 0.1s;
+      }
+      .btn-pixel:active {
+        transform: translate(2px, 2px);
+      }
+      .btn-primary {
+        background: var(--green);
+        color: var(--black);
+        box-shadow:
+          4px 4px 0 var(--green-dim),
+          8px 8px 0 var(--green-dark);
+      }
+      .btn-primary:hover {
+        box-shadow: 2px 2px 0 var(--green-dim);
+        transform: translate(2px, 2px);
+      }
+      .btn-secondary {
+        background: transparent;
+        color: var(--yellow);
+        border: 2px solid var(--yellow);
+        box-shadow: 4px 4px 0 var(--yellow-dim);
+      }
+      .btn-secondary:hover {
+        background: var(--yellow);
+        color: var(--black);
+        transform: translate(2px, 2px);
+      }
+      .hero-right {
+        display: flex;
+        justify-content: center;
+      }
+      .character-card {
+        border: 3px solid var(--green);
+        background: rgba(0, 255, 65, 0.04);
+        padding: 28px;
+        width: 320px;
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        animation: float 3s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
         }
-
-        /* Pixel grid background */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-image:
-                linear-gradient(rgba(0,255,65,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,255,65,0.03) 1px, transparent 1px);
-            background-size: 32px 32px;
-            pointer-events: none;
-            z-index: 0;
+        50% {
+          transform: translateY(-10px);
         }
-
-        /* ─── NAVBAR ─── */
-        nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
-            background: rgba(10,10,10,0.95);
-            border-bottom: 2px solid var(--green);
-            padding: 12px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 11px;
-            color: var(--green);
-            text-shadow: 0 0 10px var(--green);
-            text-decoration: none;
-        }
-
-        .nav-logo span { color: var(--yellow); }
-
-        .nav-links { display: flex; gap: 32px; }
-
-        .nav-links a {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 8px;
-            color: var(--white);
-            text-decoration: none;
-            transition: color 0.2s;
-            position: relative;
-        }
-
-        .nav-links a::before {
-            content: '▶ ';
-            color: var(--green);
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-
-        .nav-links a:hover { color: var(--green); }
-        .nav-links a:hover::before { opacity: 1; }
-
-        /* ─── HERO ─── */
-        #hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
-            padding: 80px 40px 40px;
-        }
-
+      }
+      .card-title {
+        font-family: "Press Start 2P", monospace;
+        font-size: 9px;
+        color: var(--green);
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--green-dark);
+      }
+      .stat-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+      .stat-label {
+        color: #a0aec0;
+      }
+      .stat-value {
+        color: var(--yellow);
+        font-size: 18px;
+      }
+      .stat-bar {
+        width: 100%;
+        height: 8px;
+        background: var(--green-dark);
+        margin-bottom: 10px;
+      }
+      .stat-bar-fill {
+        height: 100%;
+        background: var(--green);
+        box-shadow: 0 0 8px var(--green);
+      }
+      section {
+        position: relative;
+        z-index: 1;
+        padding: 80px 40px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 48px;
+      }
+      .section-title {
+        font-family: "Press Start 2P", monospace;
+        font-size: 16px;
+        color: var(--white);
+      }
+      .section-title span {
+        color: var(--green);
+      }
+      .section-line {
+        flex: 1;
+        height: 2px;
+        background: linear-gradient(90deg, var(--green), transparent);
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+      .pixel-box {
+        border: 2px solid var(--green);
+        background: rgba(0, 255, 65, 0.03);
+        padding: 24px;
+        position: relative;
+      }
+      .pixel-box::before {
+        content: attr(data-title);
+        font-family: "Press Start 2P", monospace;
+        font-size: 8px;
+        color: var(--green);
+        position: absolute;
+        top: -10px;
+        left: 12px;
+        background: var(--darker);
+        padding: 0 8px;
+      }
+      .about-text {
+        font-size: 20px;
+        color: #a0aec0;
+        line-height: 1.8;
+      }
+      .about-text strong {
+        color: var(--green);
+      }
+      .info-row {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 14px;
+        align-items: flex-start;
+        font-size: 18px;
+      }
+      .info-icon {
+        color: var(--green);
+        min-width: 20px;
+      }
+      .info-text {
+        color: #a0aec0;
+      }
+      .info-text strong {
+        color: var(--white);
+      }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      .skill-card {
+        border: 2px solid var(--gray);
+        background: rgba(255, 255, 255, 0.02);
+        padding: 20px;
+        transition:
+          border-color 0.3s,
+          transform 0.2s;
+      }
+      .skill-card:hover {
+        border-color: var(--green);
+        transform: translateY(-4px);
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.15);
+      }
+      .skill-icon {
+        font-size: 28px;
+        margin-bottom: 10px;
+        display: block;
+      }
+      .skill-name {
+        font-family: "Press Start 2P", monospace;
+        font-size: 8px;
+        color: var(--white);
+        margin-bottom: 10px;
+        display: block;
+      }
+      .skill-level {
+        display: flex;
+        gap: 4px;
+      }
+      .pip {
+        width: 12px;
+        height: 12px;
+        background: var(--green-dark);
+        border: 1px solid var(--green);
+      }
+      .pip.filled {
+        background: var(--green);
+        box-shadow: 0 0 6px var(--green);
+      }
+      .skill-tag {
+        font-size: 14px;
+        color: var(--green);
+        margin-top: 8px;
+        display: block;
+      }
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px;
+      }
+      .quest-card {
+        border: 2px solid var(--gray);
+        background: rgba(255, 255, 255, 0.02);
+        padding: 28px;
+        transition:
+          border-color 0.3s,
+          transform 0.2s;
+        position: relative;
+        overflow: hidden;
+      }
+      .quest-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: var(--green);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .quest-card:hover {
+        border-color: var(--green);
+        transform: translateY(-4px);
+        box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
+      }
+      .quest-card:hover::before {
+        opacity: 1;
+      }
+      .quest-badge {
+        font-family: "Press Start 2P", monospace;
+        font-size: 7px;
+        padding: 4px 8px;
+        background: var(--green-dark);
+        color: var(--green);
+        border: 1px solid var(--green);
+        display: inline-block;
+        margin-bottom: 12px;
+      }
+      .quest-title {
+        font-family: "Press Start 2P", monospace;
+        font-size: 11px;
+        color: var(--white);
+        margin-bottom: 12px;
+        line-height: 1.6;
+      }
+      .quest-desc {
+        font-size: 18px;
+        color: #a0aec0;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+      .quest-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+      .quest-tag {
+        font-family: "Press Start 2P", monospace;
+        font-size: 7px;
+        padding: 4px 8px;
+        background: rgba(0, 170, 255, 0.1);
+        color: var(--blue);
+        border: 1px solid var(--blue);
+      }
+      .quest-links {
+        display: flex;
+        gap: 12px;
+      }
+      .quest-link {
+        font-family: "Press Start 2P", monospace;
+        font-size: 7px;
+        padding: 8px 14px;
+        text-decoration: none;
+        border: 1px solid var(--green);
+        color: var(--green);
+        transition: all 0.2s;
+      }
+      .quest-link:hover {
+        background: var(--green);
+        color: var(--black);
+      }
+      .quest-link.demo {
+        border-color: var(--yellow);
+        color: var(--yellow);
+      }
+      .quest-link.demo:hover {
+        background: var(--yellow);
+        color: var(--black);
+      }
+      #contact {
+        text-align: center;
+      }
+      .contact-box {
+        border: 2px solid var(--green);
+        background: rgba(0, 255, 65, 0.03);
+        padding: 48px;
+        max-width: 600px;
+        margin: 0 auto;
+        box-shadow: 0 0 40px rgba(0, 255, 65, 0.1);
+      }
+      .contact-text {
+        font-size: 22px;
+        color: #a0aec0;
+        margin-bottom: 32px;
+        line-height: 1.6;
+      }
+      .contact-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .contact-link {
+        font-family: "Press Start 2P", monospace;
+        font-size: 8px;
+        padding: 14px 20px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 2px solid var(--gray);
+        color: var(--white);
+        transition: all 0.2s;
+      }
+      .contact-link:hover {
+        border-color: var(--green);
+        color: var(--green);
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+      }
+      footer {
+        position: relative;
+        z-index: 1;
+        border-top: 2px solid var(--green-dark);
+        padding: 24px 40px;
+        text-align: center;
+        font-size: 16px;
+        color: var(--gray);
+      }
+      footer span {
+        color: var(--green);
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--darker);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--green-dark);
+        border: 1px solid var(--green);
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--green);
+      }
+      @media (max-width: 768px) {
         .hero-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            max-width: 1100px;
-            width: 100%;
-            align-items: center;
+          grid-template-columns: 1fr;
         }
-
-        .hero-left { position: relative; }
-
-        .hero-tag {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 9px;
-            color: var(--green);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .hero-right {
+          display: flex;
+          justify-content: center;
+          margin-top: 24px;
         }
-
-        .blink {
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .hero-name {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 28px;
-            line-height: 1.6;
-            color: var(--white);
-            margin-bottom: 8px;
-            text-shadow: 3px 3px 0 var(--green-dark);
-        }
-
-        .hero-name span { color: var(--green); text-shadow: 0 0 20px var(--green); }
-
-        .hero-title {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 11px;
-            color: var(--yellow);
-            margin-bottom: 28px;
-            text-shadow: 2px 2px 0 #664400;
-        }
-
-        .hero-bio {
-            font-size: 22px;
-            color: #a0aec0;
-            line-height: 1.6;
-            margin-bottom: 36px;
-            max-width: 460px;
-        }
-
-        .hero-bio span { color: var(--green); }
-
-        .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
-
-        .btn-pixel {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 9px;
-            padding: 14px 24px;
-            text-decoration: none;
-            display: inline-block;
-            transition: transform 0.1s;
-            position: relative;
-        }
-
-        .btn-pixel:active { transform: translate(2px, 2px); }
-
-        .btn-primary {
-            background: var(--green);
-            color: var(--black);
-            box-shadow: 4px 4px 0 var(--green-dim), 8px 8px 0 var(--green-dark);
-        }
-
-        .btn-primary:hover {
-            box-shadow: 2px 2px 0 var(--green-dim), 4px 4px 0 var(--green-dark);
-            transform: translate(2px, 2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--yellow);
-            border: 2px solid var(--yellow);
-            box-shadow: 4px 4px 0 var(--yellow-dim);
-        }
-
-        .btn-secondary:hover {
-            background: var(--yellow);
-            color: var(--black);
-            box-shadow: 2px 2px 0 var(--yellow-dim);
-            transform: translate(2px, 2px);
-        }
-
-        /* Hero Character Card */
-        .hero-right { display: flex; justify-content: center; }
-
         .character-card {
-            border: 3px solid var(--green);
-            background: rgba(0,255,65,0.04);
-            padding: 28px;
-            width: 320px;
-            box-shadow:
-                0 0 20px rgba(0,255,65,0.2),
-                inset 0 0 40px rgba(0,255,65,0.03);
-            animation: float 3s ease-in-out infinite;
-            position: relative;
+          width: 100%;
+          max-width: 340px;
         }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .character-card::before {
-            content: '';
-            position: absolute;
-            top: -3px; left: 12px; right: 12px;
-            height: 3px;
-            background: var(--darker);
-        }
-
-        .card-title {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 9px;
-            color: var(--green);
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--green-dark);
-        }
-
-        /* Pixel Art Character */
-        .pixel-character {
-            display: grid;
-            grid-template-columns: repeat(12, 16px);
-            grid-template-rows: repeat(16, 16px);
-            gap: 1px;
-            margin: 0 auto 20px;
-            width: fit-content;
-        }
-
-        .px { width: 16px; height: 16px; }
-        .px-skin { background: #ffcc99; }
-        .px-hair { background: #4a2800; }
-        .px-shirt { background: #0066cc; }
-        .px-pants { background: #333366; }
-        .px-shoes { background: #221100; }
-        .px-empty { background: transparent; }
-        .px-green { background: var(--green); }
-        .px-eye { background: #000; }
-        .px-white { background: #fff; }
-
-        .card-stats { margin-top: 16px; }
-
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .stat-label { color: #a0aec0; }
-        .stat-value { color: var(--yellow); font-size: 18px; }
-
-        .stat-bar {
-            width: 100%;
-            height: 8px;
-            background: var(--green-dark);
-            margin-bottom: 10px;
-            position: relative;
-        }
-
-        .stat-bar-fill {
-            height: 100%;
-            background: var(--green);
-            box-shadow: 0 0 8px var(--green);
-            animation: fillBar 1.5s ease-out forwards;
-        }
-
-        @keyframes fillBar {
-            from { width: 0; }
-        }
-
-        /* ─── SECTION COMMON ─── */
-        section {
-            position: relative;
-            z-index: 1;
-            padding: 80px 40px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 48px;
-        }
-
-        .section-title {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 16px;
-            color: var(--white);
-        }
-
-        .section-title span { color: var(--green); }
-
-        .section-line {
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(90deg, var(--green), transparent);
-        }
-
-        /* ─── ABOUT / PLAYER STATS ─── */
         .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
+          grid-template-columns: 1fr;
         }
-
-        .pixel-box {
-            border: 2px solid var(--green);
-            background: rgba(0,255,65,0.03);
-            padding: 24px;
-            position: relative;
-        }
-
-        .pixel-box::before {
-            content: attr(data-title);
-            font-family: 'Press Start 2P', monospace;
-            font-size: 8px;
-            color: var(--green);
-            position: absolute;
-            top: -10px;
-            left: 12px;
-            background: var(--darker);
-            padding: 0 8px;
-        }
-
-        .about-text {
-            font-size: 20px;
-            color: #a0aec0;
-            line-height: 1.8;
-        }
-
-        .about-text strong { color: var(--green); font-style: normal; }
-
-        .info-row {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 14px;
-            align-items: flex-start;
-            font-size: 18px;
-        }
-
-        .info-icon { color: var(--green); min-width: 20px; }
-        .info-text { color: #a0aec0; }
-        .info-text strong { color: var(--white); }
-
-        /* ─── SKILLS ─── */
         .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+          grid-template-columns: repeat(2, 1fr);
         }
-
-        .skill-card {
-            border: 2px solid var(--gray);
-            background: rgba(255,255,255,0.02);
-            padding: 20px;
-            transition: border-color 0.3s, transform 0.2s;
-            cursor: default;
-        }
-
-        .skill-card:hover {
-            border-color: var(--green);
-            transform: translateY(-4px);
-            box-shadow: 0 0 20px rgba(0,255,65,0.15);
-        }
-
-        .skill-icon {
-            font-size: 28px;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .skill-name {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 8px;
-            color: var(--white);
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .skill-level {
-            display: flex;
-            gap: 4px;
-        }
-
-        .pip {
-            width: 12px;
-            height: 12px;
-            background: var(--green-dark);
-            border: 1px solid var(--green);
-        }
-
-        .pip.filled { background: var(--green); box-shadow: 0 0 6px var(--green); }
-
-        .skill-tag {
-            font-size: 14px;
-            color: var(--green);
-            margin-top: 8px;
-            display: block;
-        }
-
-        /* ─── PROJECTS ─── */
         .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 28px;
+          grid-template-columns: 1fr;
         }
-
-        .quest-card {
-            border: 2px solid var(--gray);
-            background: rgba(255,255,255,0.02);
-            padding: 28px;
-            transition: border-color 0.3s, transform 0.2s;
-            position: relative;
-            overflow: hidden;
+        .hero-name {
+          font-size: 18px;
         }
-
-        .quest-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--green);
-            opacity: 0;
-            transition: opacity 0.3s;
+        .nav-links {
+          display: none;
         }
-
-        .quest-card:hover {
-            border-color: var(--green);
-            transform: translateY(-4px);
-            box-shadow: 0 0 30px rgba(0,255,65,0.1);
-        }
-
-        .quest-card:hover::before { opacity: 1; }
-
-        .quest-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
-        }
-
-        .quest-badge {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 7px;
-            padding: 4px 8px;
-            background: var(--green-dark);
-            color: var(--green);
-            border: 1px solid var(--green);
-        }
-
-        .quest-title {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 11px;
-            color: var(--white);
-            margin-bottom: 12px;
-            line-height: 1.6;
-        }
-
-        .quest-desc {
-            font-size: 18px;
-            color: #a0aec0;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .quest-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .quest-tag {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 7px;
-            padding: 4px 8px;
-            background: rgba(0,170,255,0.1);
-            color: var(--blue);
-            border: 1px solid var(--blue);
-        }
-
-        .quest-links { display: flex; gap: 12px; }
-
-        .quest-link {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 7px;
-            padding: 8px 14px;
-            text-decoration: none;
-            border: 1px solid var(--green);
-            color: var(--green);
-            transition: all 0.2s;
-        }
-
-        .quest-link:hover {
-            background: var(--green);
-            color: var(--black);
-        }
-
-        .quest-link.demo {
-            border-color: var(--yellow);
-            color: var(--yellow);
-        }
-
-        .quest-link.demo:hover {
-            background: var(--yellow);
-            color: var(--black);
-        }
-
-        /* ─── CONTACT ─── */
-        #contact { text-align: center; }
-
-        .contact-box {
-            border: 2px solid var(--green);
-            background: rgba(0,255,65,0.03);
-            padding: 48px;
-            max-width: 600px;
-            margin: 0 auto;
-            box-shadow: 0 0 40px rgba(0,255,65,0.1);
-        }
-
-        .contact-text {
-            font-size: 22px;
-            color: #a0aec0;
-            margin-bottom: 32px;
-            line-height: 1.6;
-        }
-
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .contact-link {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 8px;
-            padding: 14px 20px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: 2px solid var(--gray);
-            color: var(--white);
-            transition: all 0.2s;
-        }
-
-        .contact-link:hover {
-            border-color: var(--green);
-            color: var(--green);
-            box-shadow: 0 0 20px rgba(0,255,65,0.2);
-        }
-
-        /* ─── FOOTER ─── */
-        footer {
-            position: relative;
-            z-index: 1;
-            border-top: 2px solid var(--green-dark);
-            padding: 24px 40px;
-            text-align: center;
-            font-size: 16px;
-            color: var(--gray);
-        }
-
-        footer span { color: var(--green); }
-
-        /* ─── SCROLLBAR ─── */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--darker); }
-        ::-webkit-scrollbar-thumb { background: var(--green-dark); border: 1px solid var(--green); }
-        ::-webkit-scrollbar-thumb:hover { background: var(--green); }
-
-        /* ─── ANIMATIONS ─── */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ─── TYPEWRITER ─── */
-        .typewriter {
-            overflow: hidden;
-            border-right: 3px solid var(--green);
-            white-space: nowrap;
-            animation: typing 3s steps(30, end), blink-caret 0.5s step-end infinite;
-            max-width: fit-content;
-        }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink-caret {
-            0%, 100% { border-color: var(--green); }
-            50% { border-color: transparent; }
-        }
-
-        /* ─── RESPONSIVE ─── */
-        @media (max-width: 768px) {
-            .hero-container { grid-template-columns: 1fr; }
-            .hero-right { display: none; }
-            .about-grid { grid-template-columns: 1fr; }
-            .skills-grid { grid-template-columns: repeat(2, 1fr); }
-            .projects-grid { grid-template-columns: 1fr; }
-            .hero-name { font-size: 18px; }
-            .nav-links { display: none; }
-        }
+      }
     </style>
-</head>
-<body>
-
-    <!-- NAVBAR -->
+  </head>
+  <body>
     <nav>
-        <a href="#hero" class="nav-logo">&lt;<span>S</span>ophireak /&gt;</a>
-        <div class="nav-links">
-            <a href="#about">ABOUT</a>
-            <a href="#skills">SKILLS</a>
-            <a href="#projects">PROJECTS</a>
-            <a href="#contact">CONTACT</a>
-        </div>
+      <a href="#hero" class="nav-logo">&lt;<span>S</span>ophireak /&gt;</a>
+      <div class="nav-links">
+        <a href="#about">ABOUT</a>
+        <a href="#skills">SKILLS</a>
+        <a href="#projects">PROJECTS</a>
+        <a href="#contact">CONTACT</a>
+      </div>
     </nav>
 
-    <!-- HERO -->
     <section id="hero">
-        <div class="hero-container">
-            <div class="hero-left fade-in">
-                <div class="hero-tag">
-                    <span class="blink">▶</span> PLAYER ONE — PRESS START
-                </div>
-                <h1 class="hero-name">SAMPHEAN<br><span>SOPHIREAK</span></h1>
-                <div class="hero-title">[ WEB DEVELOPER ]</div>
-                <p class="hero-bio">
-                    Fresh CS graduate who loves building <span>web apps</span>. Turning coffee ☕ and code into real products since 2024.
-                </p>
-                <div class="hero-btns">
-                    <a href="#projects" class="btn-pixel btn-primary">VIEW QUESTS</a>
-                    <a href="/cdn-cgi/l/email-protection#601008051205010b505020070d01090c4e030f0d" class="btn-pixel btn-secondary">SEND MESSAGE</a>
-                </div>
-            </div>
-
-            <div class="hero-right fade-in">
-                <div class="character-card">
-                    <div class="card-title">── PLAYER CARD ──</div>
-
-                    <!-- Player Photo -->
-                    <div style="text-align:center; margin-bottom: 16px;">
-                        <img src="https://i.imgur.com/M9YeuFY.png"
-                             alt="Sophireak"
-                             style="width:140px; height:140px; object-fit:cover; object-position:top;
-                             border: 3px solid var(--green);
-                             box-shadow: 0 0 20px rgba(0,255,65,0.4), 0 0 60px rgba(0,255,65,0.1);
-                             display:block; margin: 0 auto;
-                             clip-path: polygon(8px 0%, calc(100% - 8px) 0%, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0% calc(100% - 8px), 0% 8px);">
-                    </div>
-
-                    <div class="card-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">CLASS</span>
-                            <span class="stat-value">Full Stack Dev</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">LEVEL</span>
-                            <span class="stat-value">Fresh Grad ★</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">PHP / LARAVEL</span>
-                            <span class="stat-value">80%</span>
-                        </div>
-                        <div class="stat-bar">
-                            <div class="stat-bar-fill" style="width:80%"></div>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">TAILWIND CSS</span>
-                            <span class="stat-value">75%</span>
-                        </div>
-                        <div class="stat-bar">
-                            <div class="stat-bar-fill" style="width:75%"></div>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">MYSQL</span>
-                            <span class="stat-value">70%</span>
-                        </div>
-                        <div class="stat-bar">
-                            <div class="stat-bar-fill" style="width:70%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="hero-container">
+        <div class="hero-left">
+          <div class="hero-tag">
+            <span class="blink">&#9658;</span> PLAYER ONE &mdash; PRESS START
+          </div>
+          <h1 class="hero-name">SAMPHEAN<br /><span>SOPHIREAK</span></h1>
+          <div class="hero-title">[ WEB DEVELOPER ]</div>
+          <p class="hero-bio">
+            Fresh CS graduate who loves building <span>web apps</span>. Turning
+            coffee and code into real products since 2024.
+          </p>
+          <div class="hero-btns">
+            <a href="#projects" class="btn-pixel btn-primary">VIEW QUESTS</a>
+            <a href="mailto:phereak00@gmail.com" class="btn-pixel btn-secondary"
+              >SEND MESSAGE</a
+            >
+          </div>
         </div>
+
+        <div class="hero-right">
+          <div class="character-card">
+            <div class="card-title">
+              &#9472;&#9472; PLAYER CARD &#9472;&#9472;
+            </div>
+            <div style="text-align: center; margin-bottom: 16px">
+              <img
+                src="https://i.imgur.com/M9YeuFY.png"
+                alt="Sophireak"
+                style="
+                  width: 140px;
+                  height: 140px;
+                  object-fit: cover;
+                  object-position: top;
+                  border: 3px solid var(--green);
+                  box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+                  display: block;
+                  margin: 0 auto;
+                  clip-path: polygon(
+                    8px 0%,
+                    calc(100% - 8px) 0%,
+                    100% 8px,
+                    100% calc(100% - 8px),
+                    calc(100% - 8px) 100%,
+                    8px 100%,
+                    0% calc(100% - 8px),
+                    0% 8px
+                  );
+                "
+              />
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">CLASS</span>
+              <span class="stat-value">Full Stack Dev</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">LEVEL</span>
+              <span class="stat-value">Fresh Grad &#9733;</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">PHP / LARAVEL</span>
+              <span class="stat-value">80%</span>
+            </div>
+            <div class="stat-bar">
+              <div class="stat-bar-fill" style="width: 80%"></div>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">TAILWIND CSS</span>
+              <span class="stat-value">75%</span>
+            </div>
+            <div class="stat-bar">
+              <div class="stat-bar-fill" style="width: 75%"></div>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">MYSQL</span>
+              <span class="stat-value">70%</span>
+            </div>
+            <div class="stat-bar">
+              <div class="stat-bar-fill" style="width: 70%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- ABOUT -->
     <section id="about">
-        <div class="section-header fade-in">
-            <h2 class="section-title"><span>01.</span> PLAYER INFO</h2>
-            <div class="section-line"></div>
+      <div class="section-header">
+        <h2 class="section-title"><span>01.</span> PLAYER INFO</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="about-grid">
+        <div class="pixel-box" data-title="[ STORY ]">
+          <p class="about-text">
+            Hey! I'm <strong>Sophireak</strong>, a fresh Computer Science
+            graduate from Cambodia.<br /><br />
+            I enjoy building web applications from designing clean interfaces to
+            writing backend logic that actually works.<br /><br />
+            When I'm not coding, I'm probably gaming (which explains this
+            portfolio).
+          </p>
         </div>
-
-        <div class="about-grid">
-            <div class="pixel-box fade-in" data-title="[ STORY ]">
-                <p class="about-text">
-                    Hey! I'm <strong>Sophireak</strong>, a fresh Computer Science graduate from Cambodia 🇰🇭.<br><br>
-                    I enjoy building web applications — from designing clean interfaces to writing backend logic that actually works.<br><br>
-                    When I'm not coding, I'm probably gaming 🎮 (which explains this portfolio).
-                </p>
-            </div>
-
-            <div class="pixel-box fade-in" data-title="[ STATS ]">
-                <div class="info-row">
-                    <span class="info-icon">▶</span>
-                    <span class="info-text"><strong>Name:</strong> Samphean Sophireak</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-icon">▶</span>
-                    <span class="info-text"><strong>Location:</strong> Cambodia 🇰🇭</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-icon">▶</span>
-                    <span class="info-text"><strong>Education:</strong> CS Graduate</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-icon">▶</span>
-                    <span class="info-text"><strong>Status:</strong> <span style="color:var(--green)">Open to work ✓</span></span>
-                </div>
-                <div class="info-row">
-                    <span class="info-icon">▶</span>
-                    <span class="info-text"><strong>Email:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="83f3ebe6f1e6e2e8b3b3c3e4eee2eaefade0ecee">[email&#160;protected]</a></span>
-                </div>
-                <div class="info-row">
-                    <span class="info-icon">▶</span>
-                    <span class="info-text"><strong>GitHub:</strong> github.com/Sophereak</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-icon">▶</span>
-                    <span class="info-text"><strong>Specialty:</strong> Laravel + Tailwind</span>
-                </div>
-            </div>
+        <div class="pixel-box" data-title="[ STATS ]">
+          <div class="info-row">
+            <span class="info-icon">&#9658;</span
+            ><span class="info-text"
+              ><strong>Name:</strong> Samphean Sophireak</span
+            >
+          </div>
+          <div class="info-row">
+            <span class="info-icon">&#9658;</span
+            ><span class="info-text"><strong>Location:</strong> Cambodia</span>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">&#9658;</span
+            ><span class="info-text"
+              ><strong>Education:</strong> CS Graduate</span
+            >
+          </div>
+          <div class="info-row">
+            <span class="info-icon">&#9658;</span
+            ><span class="info-text"
+              ><strong>Status:</strong>
+              <span style="color: var(--green)">Open to work</span></span
+            >
+          </div>
+          <div class="info-row">
+            <span class="info-icon">&#9658;</span
+            ><span class="info-text"
+              ><strong>Email:</strong> phereak00@gmail.com</span
+            >
+          </div>
+          <div class="info-row">
+            <span class="info-icon">&#9658;</span
+            ><span class="info-text"
+              ><strong>GitHub:</strong> github.com/Sophireak</span
+            >
+          </div>
+          <div class="info-row">
+            <span class="info-icon">&#9658;</span
+            ><span class="info-text"
+              ><strong>Specialty:</strong> Laravel + Tailwind</span
+            >
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- SKILLS -->
     <section id="skills">
-        <div class="section-header fade-in">
-            <h2 class="section-title"><span>02.</span> SKILL TREE</h2>
-            <div class="section-line"></div>
+      <div class="section-header">
+        <h2 class="section-title"><span>02.</span> SKILL TREE</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <span class="skill-icon">&#128024;</span>
+          <span class="skill-name">PHP</span>
+          <div class="skill-level">
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip"></div>
+          </div>
+          <span class="skill-tag">[ INTERMEDIATE ]</span>
         </div>
-
-        <div class="skills-grid">
-            <div class="skill-card fade-in">
-                <span class="skill-icon">🐘</span>
-                <span class="skill-name">PHP</span>
-                <div class="skill-level">
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip"></div>
-                </div>
-                <span class="skill-tag">[ INTERMEDIATE ]</span>
-            </div>
-
-            <div class="skill-card fade-in">
-                <span class="skill-icon">⚡</span>
-                <span class="skill-name">LARAVEL</span>
-                <div class="skill-level">
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip"></div>
-                </div>
-                <span class="skill-tag">[ INTERMEDIATE ]</span>
-            </div>
-
-            <div class="skill-card fade-in">
-                <span class="skill-icon">🎨</span>
-                <span class="skill-name">TAILWIND CSS</span>
-                <div class="skill-level">
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip"></div>
-                </div>
-                <span class="skill-tag">[ INTERMEDIATE ]</span>
-            </div>
-
-            <div class="skill-card fade-in">
-                <span class="skill-icon">🗄️</span>
-                <span class="skill-name">MYSQL</span>
-                <div class="skill-level">
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip"></div>
-                    <div class="pip"></div>
-                </div>
-                <span class="skill-tag">[ APPRENTICE ]</span>
-            </div>
-
-            <div class="skill-card fade-in">
-                <span class="skill-icon">🌐</span>
-                <span class="skill-name">HTML / CSS</span>
-                <div class="skill-level">
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip"></div>
-                </div>
-                <span class="skill-tag">[ INTERMEDIATE ]</span>
-            </div>
-
-            <div class="skill-card fade-in">
-                <span class="skill-icon">🐙</span>
-                <span class="skill-name">GIT / GITHUB</span>
-                <div class="skill-level">
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip filled"></div>
-                    <div class="pip"></div>
-                    <div class="pip"></div>
-                </div>
-                <span class="skill-tag">[ APPRENTICE ]</span>
-            </div>
+        <div class="skill-card">
+          <span class="skill-icon">&#9889;</span>
+          <span class="skill-name">LARAVEL</span>
+          <div class="skill-level">
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip"></div>
+          </div>
+          <span class="skill-tag">[ INTERMEDIATE ]</span>
         </div>
+        <div class="skill-card">
+          <span class="skill-icon">&#127912;</span>
+          <span class="skill-name">TAILWIND CSS</span>
+          <div class="skill-level">
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip"></div>
+          </div>
+          <span class="skill-tag">[ INTERMEDIATE ]</span>
+        </div>
+        <div class="skill-card">
+          <span class="skill-icon">&#128452;</span>
+          <span class="skill-name">MYSQL</span>
+          <div class="skill-level">
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+          </div>
+          <span class="skill-tag">[ APPRENTICE ]</span>
+        </div>
+        <div class="skill-card">
+          <span class="skill-icon">&#127760;</span>
+          <span class="skill-name">HTML / CSS</span>
+          <div class="skill-level">
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip"></div>
+          </div>
+          <span class="skill-tag">[ INTERMEDIATE ]</span>
+        </div>
+        <div class="skill-card">
+          <span class="skill-icon">&#128025;</span>
+          <span class="skill-name">GIT / GITHUB</span>
+          <div class="skill-level">
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip filled"></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+          </div>
+          <span class="skill-tag">[ APPRENTICE ]</span>
+        </div>
+      </div>
     </section>
 
-    <!-- PROJECTS -->
     <section id="projects">
-        <div class="section-header fade-in">
-            <h2 class="section-title"><span>03.</span> QUEST LOG</h2>
-            <div class="section-line"></div>
+      <div class="section-header">
+        <h2 class="section-title"><span>03.</span> QUEST LOG</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="projects-grid">
+        <div class="quest-card">
+          <div class="quest-badge">&#9733; MAIN QUEST</div>
+          <div class="quest-title">INVENTORY SYSTEM</div>
+          <p class="quest-desc">
+            A full-stack inventory management system with stock tracking,
+            movement history, reports and a real-time dashboard with low stock
+            warnings.
+          </p>
+          <div class="quest-tags">
+            <span class="quest-tag">Laravel 12</span>
+            <span class="quest-tag">Tailwind CSS</span>
+            <span class="quest-tag">MySQL</span>
+            <span class="quest-tag">Breeze Auth</span>
+          </div>
+          <div class="quest-links">
+            <a
+              href="https://github.com/Sophireak/inventory-system"
+              target="_blank"
+              class="quest-link"
+              >GitHub</a
+            >
+            <a
+              href="https://inventory-system-main-hxrk9f.free.laravel.cloud"
+              target="_blank"
+              class="quest-link demo"
+              >Live Demo</a
+            >
+          </div>
         </div>
-
-        <div class="projects-grid">
-            <div class="quest-card fade-in">
-                <div class="quest-header">
-                    <div class="quest-badge">★ MAIN QUEST</div>
-                </div>
-                <div class="quest-title">INVENTORY SYSTEM</div>
-                <p class="quest-desc">
-                    A full-stack inventory management system with stock tracking, movement history, reports and a real-time dashboard with low stock warnings.
-                </p>
-                <div class="quest-tags">
-                    <span class="quest-tag">Laravel 12</span>
-                    <span class="quest-tag">Tailwind CSS</span>
-                    <span class="quest-tag">MySQL</span>
-                    <span class="quest-tag">Breeze Auth</span>
-                </div>
-                <div class="quest-links">
-                    <a href="https://github.com/Sophereak/inventory-system" target="_blank" class="quest-link">
-                        ⌥ GitHub
-                    </a>
-                    <a href="https://inventory-system-main-hxrk9f.free.laravel.cloud" target="_blank" class="quest-link demo">
-                        ▶ Live Demo
-                    </a>
-                </div>
-            </div>
-
-            <div class="quest-card fade-in" style="opacity:0.5; border-style: dashed;">
-                <div class="quest-header">
-                    <div class="quest-badge" style="border-color:var(--gray); color:var(--gray); background:transparent;">
-                        ○ SIDE QUEST
-                    </div>
-                </div>
-                <div class="quest-title" style="color:var(--gray)">COMING SOON...</div>
-                <p class="quest-desc" style="color:var(--gray)">
-                    Next project in progress. Check back soon!
-                </p>
-                <div class="quest-tags">
-                    <span class="quest-tag" style="border-color:var(--gray); color:var(--gray)">???</span>
-                </div>
-            </div>
+        <div class="quest-card" style="opacity: 0.5; border-style: dashed">
+          <div
+            class="quest-badge"
+            style="
+              border-color: var(--gray);
+              color: var(--gray);
+              background: transparent;
+            "
+          >
+            &#9675; SIDE QUEST
+          </div>
+          <div class="quest-title" style="color: var(--gray)">
+            COMING SOON...
+          </div>
+          <p class="quest-desc" style="color: var(--gray)">
+            Next project in progress. Check back soon!
+          </p>
+          <div class="quest-tags">
+            <span
+              class="quest-tag"
+              style="border-color: var(--gray); color: var(--gray)"
+              >???</span
+            >
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact">
-        <div class="section-header fade-in">
-            <h2 class="section-title"><span>04.</span> SEND MESSAGE</h2>
-            <div class="section-line"></div>
+      <div class="section-header">
+        <h2 class="section-title"><span>04.</span> SEND MESSAGE</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="contact-box">
+        <p class="contact-text">
+          Looking for a dedicated developer to join your team? Let's connect!
+          I'm currently open to job opportunities and internships.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:phereak00@gmail.com" class="contact-link">EMAIL ME</a>
+          <a
+            href="https://github.com/Sophireak"
+            target="_blank"
+            class="contact-link"
+            >GITHUB</a
+          >
         </div>
-
-        <div class="contact-box fade-in">
-            <p class="contact-text">
-                Looking for a dedicated developer to join your team? Let's connect! I'm currently open to job opportunities and internships. 🎮
-            </p>
-            <div class="contact-links">
-                <a href="/cdn-cgi/l/email-protection#6b1b030e190e0a005b5b2b0c060a020745080406" class="contact-link">
-                    📧 EMAIL ME
-                </a>
-                <a href="https://github.com/Sophereak" target="_blank" class="contact-link">
-                    🐙 GITHUB
-                </a>
-            </div>
-        </div>
+      </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
-        <p>MADE WITH <span>♥</span> + ☕ BY <span>SOPHIREAK</span> © 2026</p>
-        <p style="margin-top:8px; font-size:13px;">BUILT WITH HTML · TAILWIND · CSS · NO FRAMEWORKS NEEDED</p>
+      <p>
+        MADE WITH <span>&#9829;</span> + COFFEE BY <span>SOPHIREAK</span> &copy;
+        2026
+      </p>
+      <p style="margin-top: 8px; font-size: 13px">
+        BUILT WITH HTML &middot; CSS &middot; NO FRAMEWORKS NEEDED
+      </p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Fade in on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, i) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, i * 100);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Konami code easter egg 🎮
-        let keys = [];
-        const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-        document.addEventListener('keydown', (e) => {
-   
+    <script>
+      // Konami code easter egg
+      var keys = [];
+      var konami = [
+        "ArrowUp",
+        "ArrowUp",
+        "ArrowDown",
+        "ArrowDown",
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowLeft",
+        "ArrowRight",
+        "b",
+        "a",
+      ];
+      document.addEventListener("keydown", function (e) {
+        keys.push(e.key);
+        keys = keys.slice(-10);
+        if (keys.join(",") === konami.join(",")) {
+          document.body.style.filter = "hue-rotate(180deg)";
+          setTimeout(function () {
+            document.body.style.filter = "";
+          }, 2000);
+        }
+      });
+    </script>
+  </body>
+</html>
